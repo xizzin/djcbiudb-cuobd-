@@ -1,0 +1,14 @@
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\bin\Debug\net6.0\diarything.exe
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\bin\Debug\net6.0\diarything.deps.json
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\bin\Debug\net6.0\diarything.runtimeconfig.json
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\bin\Debug\net6.0\diarything.dll
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\bin\Debug\net6.0\diarything.pdb
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.AssemblyInfoInputs.cache
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.AssemblyInfo.cs
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.csproj.CoreCompileInputs.cache
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.dll
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\refint\diarything.dll
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.pdb
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\diarything.genruntimeconfig.cache
+C:\Users\xizzi\OneDrive\Рабочий стол\си шарп\diarything\obj\Debug\net6.0\ref\diarything.dll
