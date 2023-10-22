@@ -1,5 +1,6 @@
 ﻿using diarything;
 using System.Collections.Generic;
+using System.Collections;
 using System.Runtime.InteropServices;
 
 namespace diarything
@@ -113,18 +114,15 @@ internal class Program
     public static List<Note> data5 = new List<Note>()
         { Note5};
     public static List<List<Note>> full;
+
     static public int ArrrowUpDown(int k, int b1)
     {
         ConsoleKeyInfo key;
         int b = k;
+        key = Console.ReadKey();
 
         do
         {
-            Console.SetCursorPosition(0, b);
-            Console.WriteLine(">");
-
-            key = Console.ReadKey();
-
             Console.SetCursorPosition(0, b);
             Console.WriteLine(" ");
 
@@ -141,75 +139,129 @@ internal class Program
 
             }
 
+            Console.SetCursorPosition(0, b);
+            Console.WriteLine(">");
+            key = Console.ReadKey();
+
         } while (key.Key != ConsoleKey.Enter);
 
         return b;
 
     }
 
-    static void ArrowLeftRight()
+    static void ArrowLeftRight(int i)
     {
+        
+        int kcount = full.Count;
+        
         ConsoleKeyInfo arrow = Console.ReadKey();
-        if (arrow.Key == ConsoleKey.LeftArrow)
+        if (arrow.Key == ConsoleKey.LeftArrow && i != 0)
         {
-
+            i--;
+            Thenames(i);
         }
-        if (arrow.Key == ConsoleKey.RightArrow)
+        if (arrow.Key == ConsoleKey.RightArrow && i != kcount) 
+        {
+            i++;
+            Thenames(i);
+        }
+        if (arrow.Key == ConsoleKey.RightArrow && i == kcount)
+        {
+            Thenames(0);
+        }
+        if (arrow.Key == ConsoleKey.LeftArrow && i == 0)
+        {
+            Thenames(full.Count);
+        }
+        else
         {
 
         }
     }
     
 
-    static void Thenames(List<Note>a)
+    static void Thenames(int a)
     {
-        Console.Clear();
-        Console.Write("Дата:", a.First().Date, "\n");
-        foreach (Note pos in a) 
-        {
-            Console.WriteLine(" ", pos.Name);
-
-        }
-        int count = a.Count;
-        ArrrowUpDown(1, count);
-        int m = ArrrowUpDown(1, count);
-        ConsoleKeyInfo noteinfochoice = Console.ReadKey();
-        if (m == 1 && noteinfochoice.Key == ConsoleKey.Enter) 
-        {
-            m = m - 1;
-
         
-        }
-    }
-
-    static void Main()
-    {
-        full = new List<List<Note>> { data1, data2, data3, data4, data5 };
-       
-        Console.WriteLine("Нажмите Esc для выхода из программы. \n Нажмите Tab для выхода в главное меню. \n Стрелки вверх-вниз передвигают Вас между позициями меню. Стрелки вправо-влево меняют даты. \n Ннажатие Enter откроет более подбробную информацию о выбранной позиции меню.");
-        Console.WriteLine(full[0][0].Date.Date);
-        Console.WriteLine(full[1][0].Date.Date);
-        Console.WriteLine(full[2][0].Date.Date);
-        Console.WriteLine(full[3][0].Date.Date);
-        Console.WriteLine(full[4][0].Date.Date);
-        ConsoleKeyInfo menuchoice = Console.ReadKey();
-        do
+        Console.Clear();        
+        Console.Write("Дата: " + full[a][0].Date.Date + "\n");
+        foreach (Note pos in full[a]) 
         {
-            ArrrowUpDown(4, 8);
-            int l = ArrrowUpDown(4, 8);
+            Console.WriteLine(" " + pos.Name);
 
-            if (menuchoice.Key == ConsoleKey.Enter && l == 4)
+        }
+        ArrowLeftRight(a);
+        int count = full[a].Count;
+        int m = ArrrowUpDown(1, count);
+        m -= 1;
+        ConsoleKeyInfo noteinfochoice = Console.ReadKey();
+        if (m == 0 && noteinfochoice.Key == ConsoleKey.Enter) 
+        {
+            Console.Clear();                     
+            Console.WriteLine("Дата создания заметки: " + full[a][m].Date);
+            Console.WriteLine("Название: " + full[a][m].Name);
+            Console.WriteLine(full[a][m].Description);
+            Console.WriteLine("Лучше сделать до: " + full[a][m].BestBefore);
+            Console.WriteLine("ПЫсы: " + full[a][m].Notabene);  
+            ConsoleKeyInfo anotherkey = Console.ReadKey();
+            if (anotherkey.Key == ConsoleKey.Tab)
             {
                 Console.Clear();
-                Thenames(full[0]);
-                int count = full[0].Count;
-                ArrrowUpDown(1, count);
+                Thenames(a);
             }
             else
             {
 
             }
-        } while (menuchoice.Key != ConsoleKey.Escape || menuchoice.Key != ConsoleKey.Enter);
-        //я не понимаю, почему он отказывается выходить из программы. почему. почему.
+            
+        }
+        else
+        {
+            
+        }
+    }
+
+    static void Main()
+    {
+        
+        full = new List<List<Note>> { data1, data2, data3, data4, data5 };
+       
+        
+        Console.WriteLine("Нажмите Esc для выхода из программы. \n Нажмите Tab для выхода в главное меню отдельной даты. \n Стрелки вверх-вниз передвигают Вас между позициями меню. Стрелки вправо-влево меняют даты. \n Ннажатие Enter откроет более подбробную информацию о выбранной позиции меню.");
+        Console.WriteLine(" " + full[0][0].Date.Date);
+        Console.WriteLine(" " + full[1][0].Date.Date);
+        Console.WriteLine(" " + full[2][0].Date.Date);
+        Console.WriteLine(" " + full[3][0].Date.Date);
+        Console.WriteLine(" " + full[4][0].Date.Date);
+        int pos = ArrrowUpDown(4, 8);
+        ConsoleKeyInfo menuchoice = Console.ReadKey();
+        while (menuchoice.Key != ConsoleKey.Escape) 
+        {
+            if (menuchoice.Key == ConsoleKey.Enter && pos == 4)
+            {
+                Console.Clear();
+                Thenames(0);
+            }
+            if (menuchoice.Key == ConsoleKey.Enter && pos == 5)
+            {
+                Console.Clear();
+                Thenames(1);
+            }
+            if (menuchoice.Key == ConsoleKey.Enter && pos == 6)
+            {
+                Console.Clear();
+                Thenames(2);
+            }
+            if (menuchoice.Key == ConsoleKey.Enter && pos == 7)
+            {
+                Console.Clear();
+                Thenames(3);
+            }
+            if (menuchoice.Key == ConsoleKey.Enter && pos == 8)
+            {
+                Console.Clear();
+                Thenames(4);
+            }
+        }      
     }
 }
