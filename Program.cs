@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 
 namespace diarything
 {
@@ -134,9 +135,9 @@ internal class Program
             {
                 b++;
             }
-            else
+            if (key.Key == ConsoleKey.Escape)
             {
-
+                return -1;
             }
 
             Console.SetCursorPosition(0, b);
@@ -151,58 +152,67 @@ internal class Program
 
     static void ArrowLeftRight(int i)
     {
-        
-        int kcount = full.Count;
-        
-        ConsoleKeyInfo arrow = Console.ReadKey();
-        if (arrow.Key == ConsoleKey.LeftArrow && i != 0)
-        {
-            i--;
-            Thenames(i);
-        }
-        if (arrow.Key == ConsoleKey.RightArrow && i != kcount) 
-        {
-            i++;
-            Thenames(i);
-        }
-        if (arrow.Key == ConsoleKey.RightArrow && i == kcount)
-        {
-            Thenames(0);
-        }
-        if (arrow.Key == ConsoleKey.LeftArrow && i == 0)
-        {
-            Thenames(full.Count);
-        }
-        else
-        {
 
-        }
+        int kcount = full.Count-1;
+
+        ConsoleKeyInfo arrow ;
+
+        do
+        {
+            arrow = Console.ReadKey();
+            if (arrow.Key == ConsoleKey.LeftArrow && i != 0)
+            {
+                i--;
+                Show(i);
+            }
+            else if (arrow.Key == ConsoleKey.RightArrow && i != kcount)
+            {
+                i++;
+                Show(i);
+            }
+            else if (arrow.Key == ConsoleKey.RightArrow && i == kcount)
+            {
+                Show(0);
+            }
+            else if (arrow.Key == ConsoleKey.LeftArrow && i == 0)
+            {
+                Show(full.Count - 1);
+            }
+            else
+            {
+                return;
+            }
+        } while (arrow.Key != ConsoleKey.Enter);
     }
-    
 
-    static void Thenames(int a)
+    static void Show(int a)
     {
-        
-        Console.Clear();        
+        Console.Clear();
         Console.Write("Дата: " + full[a][0].Date.Date + "\n");
-        foreach (Note pos in full[a]) 
+        foreach (Note pos in full[a])
         {
             Console.WriteLine(" " + pos.Name);
 
         }
+    }
+
+    static void Thenames(int a)
+    {
+
+        Show(a);
         ArrowLeftRight(a);
         int count = full[a].Count;
         int m = ArrrowUpDown(1, count);
+        if (m == -1) { return; }
         m -= 1;
-        ConsoleKeyInfo noteinfochoice = Console.ReadKey();
-        if (m == 0 && noteinfochoice.Key == ConsoleKey.Enter) 
+        if (m == 0)
         {
-            Console.Clear();                     
+            Console.Clear();
             Console.WriteLine("Дата создания заметки: " + full[a][m].Date);
             Console.WriteLine("Название: " + full[a][m].Name);
             Console.WriteLine(full[a][m].Description);
             Console.WriteLine("Лучше сделать до: " + full[a][m].BestBefore);
-            Console.WriteLine("ПЫсы: " + full[a][m].Notabene);  
+            Console.WriteLine("ПЫсы: " + full[a][m].Notabene);
             ConsoleKeyInfo anotherkey = Console.ReadKey();
             if (anotherkey.Key == ConsoleKey.Tab)
             {
@@ -213,20 +223,23 @@ internal class Program
             {
 
             }
-            
+
         }
         else
         {
-            
+
         }
     }
 
     static void Main()
     {
-        
+
         full = new List<List<Note>> { data1, data2, data3, data4, data5 };
-       
-        
+
+
+        while (true)
+        {
+            Console.Clear();
         Console.WriteLine("Нажмите Esc для выхода из программы. \n Нажмите Tab для выхода в главное меню отдельной даты. \n Стрелки вверх-вниз передвигают Вас между позициями меню. Стрелки вправо-влево меняют даты. \n Ннажатие Enter откроет более подбробную информацию о выбранной позиции меню.");
         Console.WriteLine(" " + full[0][0].Date.Date);
         Console.WriteLine(" " + full[1][0].Date.Date);
@@ -234,34 +247,31 @@ internal class Program
         Console.WriteLine(" " + full[3][0].Date.Date);
         Console.WriteLine(" " + full[4][0].Date.Date);
         int pos = ArrrowUpDown(4, 8);
-        ConsoleKeyInfo menuchoice = Console.ReadKey();
-        while (menuchoice.Key != ConsoleKey.Escape) 
+        if ( pos == 4)
         {
-            if (menuchoice.Key == ConsoleKey.Enter && pos == 4)
-            {
-                Console.Clear();
-                Thenames(0);
-            }
-            if (menuchoice.Key == ConsoleKey.Enter && pos == 5)
-            {
-                Console.Clear();
-                Thenames(1);
-            }
-            if (menuchoice.Key == ConsoleKey.Enter && pos == 6)
-            {
-                Console.Clear();
-                Thenames(2);
-            }
-            if (menuchoice.Key == ConsoleKey.Enter && pos == 7)
-            {
-                Console.Clear();
-                Thenames(3);
-            }
-            if (menuchoice.Key == ConsoleKey.Enter && pos == 8)
-            {
-                Console.Clear();
-                Thenames(4);
-            }
-        }      
+            Console.Clear();
+            Thenames(0);
+        }
+        if (pos == 5)
+        {
+            Console.Clear();
+            Thenames(1);
+        }
+        if (pos == 6)
+        {
+            Console.Clear();
+            Thenames(2);
+        }
+        if (pos == 7)
+        {
+            Console.Clear();
+            Thenames(3);
+        }
+        if (pos == 8)
+        {
+            Console.Clear();
+            Thenames(4);
+        }
+        }
     }
 }
