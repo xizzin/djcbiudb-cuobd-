@@ -178,7 +178,7 @@ internal class Program
             {
                 Show(full.Count - 1);
             }
-            else if (arrow.Key == ConsoleKey.Escape)
+            else if (arrow.Key == ConsoleKey.Tab)
             {
                 System.Environment.Exit(0);
             }
@@ -244,7 +244,7 @@ internal class Program
         while (true)
         {
             Console.Clear();
-        Console.WriteLine("Нажмите Esc для выхода из программы. \n Нажмите Tab для выхода в главное меню отдельной даты. \n Стрелки вверх-вниз передвигают Вас между позициями меню. Стрелки вправо-влево меняют даты. \n Ннажатие Enter откроет более подбробную информацию о выбранной позиции меню.");
+        Console.WriteLine("Нажмите Tab для выхода из программы. \n Нажмите Escape для выхода в главное меню отдельной даты. \n Стрелки вверх-вниз передвигают Вас между позициями меню. Стрелки вправо-влево меняют даты. \n Ннажатие Enter откроет более подбробную информацию о выбранной позиции меню.");
         Console.WriteLine(" " + full[0][0].Date.Date);
         Console.WriteLine(" " + full[1][0].Date.Date);
         Console.WriteLine(" " + full[2][0].Date.Date);
@@ -277,6 +277,11 @@ internal class Program
             Thenames(4);
         }
 
+        ConsoleKeyInfo ch = Console.ReadKey();
+        if (ch.Key == ConsoleKey.Tab)
+        {
+            System.Environment.Exit(0);
+        }
         }
     }
 }
