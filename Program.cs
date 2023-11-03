@@ -178,6 +178,10 @@ internal class Program
             {
                 Show(full.Count - 1);
             }
+            else if (arrow.Key == ConsoleKey.Escape)
+            {
+                System.Environment.Exit(0);
+            }
             else
             {
                 return;
@@ -272,6 +276,7 @@ internal class Program
             Console.Clear();
             Thenames(4);
         }
+
         }
     }
 }
